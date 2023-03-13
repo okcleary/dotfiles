@@ -1,0 +1,133 @@
+# Configuration for Alacritty, the GPU enhanced terminal emulator.
+# Setup term for programs to be able to use it
+env:
+  TERM: alacritty
+
+shell:
+  program: /bin/zsh
+  args:
+    - -l
+    - -c
+    - "tmux new-session -A -s main"
+
+window:
+  # Spread additional padding evenly around the terminal content.
+  dynamic_padding: true
+
+  # Window dimensions (changes require restart)
+  #
+  # Number of lines/columns (not pixels) in the terminal. The number of columns
+  # must be at least `2`, while using a value of `0` for columns and lines will
+  # fall back to the window manager's recommended size.
+  # dimensions:
+  #   columns: 500
+  #   lines: 35
+  # position:
+  #   x: 0
+  #   y: 0
+  decorations: none
+
+font:
+  # Normal font face - Also used to draw glyphs on tmux & VIM
+  # NOTE: You may use any font you'd like but make sure the normal fonts
+  # support ligatures/glyphs. That's used by tmux & VIM to provide a better
+  # UI for powerline & tmux bottom bar.
+  normal:
+    # Font name
+    family: Anonymice Nerd Font Mono
+    # Font face
+    # style: Retina
+
+  # Bold font face
+  bold:
+    family: Anonymice Nerd Font Mono
+    style: Bold
+
+  # Italic font face
+  italic:
+    family: Anonymice Nerd Font Mono
+    style: Italic
+
+  # Bold italic font face
+  # Note: Since i don't have a font italic version of this font, I just specified
+  # italic & it just works. You may specifiy the bold italic version if it exists
+  # for your font
+  bold_italic:
+    family: Anonymice Nerd Font Mono
+    style: Italic
+
+  # Font size
+  size: 13.0
+
+  # Offset is the extra space around each character. `offset.y` can be thought of
+  # as modifying the line spacing, and `offset.x` as modifying the letter spacing
+  # I've given in 14 spacing which fits really well with my fonts, you may change it
+  # to your convenience but make sure to adjust 'glyph_offset' appropriately post that
+  offset:
+   x: 0
+   y: 4
+
+  # Note: This requires RESTART
+  # By default when you change the offset above you'll see an issue, where the texts are bottom
+  # aligned with the cursor, this is to make sure they center align.
+  # This offset should usually be 1/2 of the above offset-y being set.
+  glyph_offset:
+   x: 0
+   # Keeping this as half of offset to vertically align the text in cursor
+   y: 2
+
+selection:
+  semantic_escape_chars: ",│`|:\"' ()[]{}<>\t"
+
+  # When set to `true`, selected text will be copied to the primary clipboard.
+  save_to_clipboard: true
+
+# Live config reload (changes require restart)
+live_config_reload: true
+
+# Setup some amazing custom key bindings here - Best thing is you can setup key bindings
+# using Mac's 'command' to control your tmux.
+# A great reference: https://arslan.io/2018/02/05/gpu-accelerated-terminal-alacritty/#make-alacritty-feel-like-iterm2
+key_bindings:
+  - { key: LBracket, mods: Command, chars: "\x5c\x70" } # Use command + [ - to go to previous tmux window
+  - { key: RBracket, mods: Command, chars: "\x5c\x6e" } # Use command + ] - to go to previous tmux window
+  - { key: Key6, mods: Control, chars: "\x1e" } # ctrl-^ doesn't work in some terminals like alacritty
+  - { key: Comma,     mods: Command,      command:
+    {program: "sh", args: ["-c","open ~/.config/alacritty/alacritty.yml"]}     }
+  - { key: N,         mods: Command,      action: SpawnNewInstance       }
+  - { key: Space,     mods: Alt,          chars: " "                     }
+  - { key: Back, mods: Super, chars: "\x15" } # delete word/line
+  - { key: Left,     mods: Alt,     chars: "\x1bb"                       } # one word left
+  - { key: Right,    mods: Alt,     chars: "\x1bf"                       } # one word right
+  - { key: Left,     mods: Command, chars: "\x1bOH",   mode: AppCursor   } # Home
+  - { key: Right,    mods: Command, chars: "\x1bOF",   mode: AppCursor   } # End
+  - { key: Return,   mods: Command, action: ToggleSimpleFullscreen }
+
+# Colors (Ayu Mirage)
+colors:
+  # Default colors
+  primary:
+    background: '#202734'
+    foreground: '#CBCCC6'
+
+  # Normal colors
+  normal:
+    black: '#191E2A'
+    red: '#FF3333'
+    green: '#BAE67E'
+    yellow: '#FFA759'
+    blue: '#73D0FF'
+    magenta: '#FFD580'
+    cyan: '#95E6CB'
+    white: '#C7C7C7'
+
+  # Bright colors
+  bright:
+    black: '#686868'
+    red: '#F27983'
+    green: '#A6CC70'
+    yellow: '#FFCC66'
+    blue: '#5CCFE6'
+    magenta: '#FFEE99'
+    cyan: '#95E6CB'
+    white: '#FFFFFF'
